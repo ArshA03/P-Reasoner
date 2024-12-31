@@ -1,2 +1,3 @@
 env/.env
 
+src/backend/__pycache__/chatbot.cpython-312.pyc
