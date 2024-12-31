@@ -1,0 +1,194 @@
+:root {
+    --primary-color: #6c63ff;
+    --secondary-color: #f5f6fa;
+    --text-color: #2f3640;
+    --bot-message-bg: #e8f4ff;
+    --user-message-bg: #6c63ff;
+    --user-message-text: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 20px;
+    background: var(--primary-color);
+    border-radius: 20px 20px 0 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chat-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 15px;
+    border-radius: 15px;
+    animation: messagePopIn 0.3s ease-out;
+}
+
+.bot-message {
+    background: var(--bot-message-bg);
+    align-self: flex-start;
+    border-radius: 0 15px 15px 15px;
+}
+
+.user-message {
+    background: var(--user-message-bg);
+    color: var(--user-message-text);
+    align-self: flex-end;
+    border-radius: 15px 0 15px 15px;
+}
+
+.chat-input {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    background: white;
+    border-radius: 0 0 20px 20px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+}
+
+.chat-input button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+}
+
+
+/* Reasoning Toggle Switch Styles */
+.reasoning-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-label {
+    color: white;
+    font-size: 14px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Add styles for reasoning mode indicator */
+.reasoning-mode-active {
+    position: relative;
+}
+
+.reasoning-mode-active::after {
+    content: "Reasoning...";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: rgba(33, 150, 243, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #2196F3;
+}
