@@ -14,10 +14,14 @@ class Chatbot:
             api_key=os.getenv("API_KEY"),
         )
 
+        self.agent_prompts = {
+            "analyzer": "As an analytical agent, break down the question into key components:",
+            "critic": "As a critical thinker, identify potential issues or considerations:",
+            "synthesizer": "Based on the analysis and critique, provide a comprehensive response:"
+        }
         
         # Initialize conversation history
         self.conversation_history = []
-        self.conversation_summary = []  # To store summarized context
 
         self.reasoning_enabled = False  # Default state
         
@@ -63,7 +67,6 @@ class Chatbot:
             return self.multi_agent_response(user_input)
         else:
             return self.get_response(user_input)
-        
         
     def execute_reasoning_step(self, step_prompt, context=""):
         """Execute a single reasoning step"""
@@ -210,3 +213,56 @@ class Chatbot:
         
         return final_response
     
+    
+
+def test_critical_reasoning():
+    bot = Chatbot()
+    bot.reasoning_enabled = True
+
+    test_cases = [
+        {
+            "category": "Controversial Topic",
+            "input": "Should artificial intelligence be regulated?",
+            "description": "Tests handling of complex policy questions"
+        },
+        {
+            "category": "Scientific Analysis",
+            "input": "What are the best solutions for climate change?",
+            "description": "Tests handling of complex scientific issues"
+        },
+        {
+            "category": "Ethical Dilemma",
+            "input": "Is genetic engineering of humans ethical?",
+            "description": "Tests handling of ethical considerations"
+        },
+        {
+            "category": "Economic Analysis",
+            "input": "What would be the impact of implementing universal basic income?",
+            "description": "Tests handling of complex economic scenarios"
+        },
+        {
+            "category": "Social Issue",
+            "input": "How can we address income inequality in modern societies?",
+            "description": "Tests handling of complex social issues"
+        }
+    ]
+
+    for case in test_cases:
+        print("\n" + "="*80)
+        print(f"Test Category: {case['category']}")
+        print(f"Input: {case['input']}")
+        print(f"Description: {case['description']}")
+        print("="*80 + "\n")
+
+        response = bot.process_input(case['input'])
+        
+        print("Response:")
+        print(response)
+
+        print("\n" + "-"*80 + "\n")
+        
+        # Clear history for next test
+        bot.clear_history()
+
+if __name__ == "__main__":
+    test_critical_reasoning()
