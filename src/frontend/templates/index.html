@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <!-- <img src="{{ url_for('static', filename='images/bot-avatar.png') }}" alt="Bot Avatar"> -->
+            <h1>P-Reasoner</h1>
+            <div class="reasoning-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="reasoningToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label">Reasoning Mode</span>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="messageContainer">
+            <!-- Messages will be inserted here -->
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button id="sendButton">
+                <span class="send-icon">➤</span>
+            </button>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
