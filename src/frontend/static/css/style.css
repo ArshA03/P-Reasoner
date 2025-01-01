@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #6c63ff;
-    --secondary-color: #f5f6fa;
-    --text-color: #2f3640;
-    --bot-message-bg: #e8f4ff;
-    --user-message-bg: #6c63ff;
+    --primary-color: #FF6B6B;
+    --secondary-color: #FFF3E6;
+    --text-color: #4A4A4A;
+    --bot-message-bg: #E9FFED;
+    --user-message-bg: #FF6B6B;
     --user-message-text: white;
 }
 
@@ -11,7 +11,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
+    background: #FFF3E6;
+    background-image: 
+        radial-gradient(circle at 10% 20%, #FFD5D5 10px, transparent 10px),
+        radial-gradient(circle at 90% 80%, #E9FFED 15px, transparent 15px),
+        radial-gradient(circle at 50% 50%, #FFE9C8 20px, transparent 20px);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -24,7 +28,9 @@ body {
     height: 80vh;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border: 4px solid var(--primary-color);
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+    transform: rotate(-1deg);
     display: flex;
     flex-direction: column;
 }
@@ -33,6 +39,8 @@ body {
     padding: 20px;
     background: var(--primary-color);
     border-radius: 20px 20px 0 0;
+    border: 3px solid #FF8585;
+    transform: rotate(1deg);
     color: white;
     display: flex;
     align-items: center;
@@ -59,20 +67,29 @@ body {
     max-width: 70%;
     padding: 15px;
     border-radius: 15px;
+    border: 3px solid rgba(0,0,0,0.1);
+    transform: scale(0.98);
+    transition: transform 0.2s;
     animation: messagePopIn 0.3s ease-out;
+}
+
+.message:hover {
+    transform: scale(1);
 }
 
 .bot-message {
     background: var(--bot-message-bg);
     align-self: flex-start;
-    border-radius: 0 15px 15px 15px;
+    border-radius: 20px 20px 20px 5px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.05);
 }
 
 .user-message {
     background: var(--user-message-bg);
     color: var(--user-message-text);
     align-self: flex-end;
-    border-radius: 15px 0 15px 15px;
+    border-radius: 20px 20px 5px 20px;
+    box-shadow: -4px 4px 0 rgba(0,0,0,0.05);
 }
 
 .chat-input {
@@ -81,15 +98,17 @@ body {
     gap: 10px;
     background: white;
     border-radius: 0 0 20px 20px;
+    border-top: 3px dashed var(--primary-color);
 }
 
 .chat-input input {
     flex: 1;
     padding: 15px;
-    border: 2px solid var(--secondary-color);
+    border: 3px solid var(--primary-color);
     border-radius: 25px;
     outline: none;
     font-size: 16px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
 }
 
 .chat-input button {
@@ -101,10 +120,16 @@ body {
     color: white;
     cursor: pointer;
     transition: transform 0.2s;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    transform-origin: center;
 }
 
 .chat-input button:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.chat-input button:active {
+    transform: scale(0.95);
 }
 
 
@@ -143,6 +168,7 @@ body {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
+    border: 3px solid #FF8585;
 }
 
 .slider:before {
@@ -154,6 +180,7 @@ body {
     bottom: 4px;
     background-color: white;
     transition: .4s;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
 }
 
 input:checked + .slider {
@@ -191,4 +218,13 @@ input:checked + .slider:before {
     border-radius: 4px;
     font-size: 12px;
     color: #2196F3;
+    border: 2px solid #2196F3;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+/* Add bouncy animation */
+@keyframes messagePopIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
 }
