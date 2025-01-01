@@ -68,8 +68,6 @@ Guidelines:
 
 Objective:
     Support Server in developing a structured, well-rounded approach to problem-solving by supervising its thought process effectively. Your role is to guide, not to decide; to suggest, not to conclude.
-
-    You should always ask what could go wrong! Never assume an initial resposne is correct,and never rate the satsifaction or accuracy high in first reasoning step!
 """
 
 class Chatbot:
@@ -82,7 +80,7 @@ class Chatbot:
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("API_KEY"),
         )
-        self.assistant_model = "anthropic/claude-3.5-haiku"
+        self.assistant_model = "openai/gpt-3.5-turbo-0613"
         self.supervisor_model = "openai/gpt-4o-mini"
         self.assistant_prompt = assistant_prompt
         self.supervisor_prompt = supervisor_prompt
@@ -107,8 +105,7 @@ class Chatbot:
     class SupervisorRater(BaseModel):
         satisfaction: str
         accuracy: str
-        instructions: str
-        failure: bool
+        analysis: str
 
     def add_message_supervisor(self, role, content, name=None):
         """Add a message to the conversation history for supervisor"""
@@ -223,17 +220,10 @@ class Chatbot:
         {{
             "satisfaction": "high/medium/low",
             "accuracy": "high/medium/low",
-            "instructions": "detailed analysis and actionable instructions",
-            "failure": true/false
+            "analysis": "detailed analysis"
         }}
 
-        You should not acknowledge whether the respose is correct or not, but rather focus on the reasoning process and the clarity of the response.
         You should rate high in accuracy only if there is no way to challenge the response critically and every aspect is considered!
-        Also only rate high in satisfaction if the response has shown a reasonable thought process, otherwise, if it is not clear how it was reached, rate low in satisfaction.
-        Check the thought process and see if it is logically sound. There should be a thought process.
-        Give exact instructions on how to improve the response and get a better rating on accuracy and satisfaction.
-
-        If the server's response is not stil satisfying or accurate after 5 reasoning steps in the chat history, put the failure to true.
         --------------- The Server chat is as follows ---------------
         {'\n'.join(f'{msg["role"]}: "{msg["content"]}"' for msg in self.conversation_history[1:])}
         """
@@ -250,13 +240,13 @@ class Chatbot:
 
         return supervisor_response
 
-    def reasoning_response(self, critical_analysis, steps):
+    def reasoning_response(self, critical_analysis):
         """Synthesize a final response incorporating all perspectives"""
-        synthesis_prompt = f"""### Reasoning Step {steps}\nI reviewed your responses, here are your instructions:\n"{critical_analysis}"\nRefine your answer based on the review.
+        synthesis_prompt = f"""I critically analysed your responses:\n"{critical_analysis}"\nRefine your answer based on the review.
 
         Ask yourself, am i missing any important information? Are there any logical flaws in my reasoning? Have I considered all relevant perspectives? How can I improve the clarity and depth of my response?
 
-        Format the response in a clear, succinct, and well-structured manner. Do not include unnecessary information. Be succinct and to the point. Keep it as short as possible, only give the required answer!
+        Format the response in a clear, engaging, and well-structured manner. Do not include unnecessary information. Be succinct and to the point. Keep it as short as possible, only give the required answer!
         Do not talk bout the supervision process.
         """
 
@@ -293,14 +283,9 @@ class Chatbot:
         while True:
             steps += 1
             critical_analysis = self.generate_critical_analysis()
-            if critical_analysis.accuracy == "high" and critical_analysis.satisfaction == "high":
+            if critical_analysis.accuracy == "high":
                 break
-            elif critical_analysis.failure:
-                print("Reasoning failed")
-                break
-            print("Step:", steps)
-            print("Critical Analysis:", critical_analysis)
-            self.reasoning_response(critical_analysis.instructions, steps)
+            self.reasoning_response(critical_analysis.analysis)
 
         print(f"Critical analysis completed in {steps} steps")
         
@@ -308,3 +293,37 @@ class Chatbot:
         final_response = self.conversation_history[-1]["content"]
         
         return final_response
+
+
+
+def test_critical_reasoning():
+    bot = Chatbot()
+    bot.reasoning_enabled = True
+
+    test_cases = [
+        {
+            "category": "Logical Issue",
+            "input": "which one is greater, 9.11 or 9.9?",
+            "description": "Tests handling of complex questions"
+        },
+    ]
+
+    for case in test_cases:
+        print("\n" + "="*80)
+        print(f"Test Category: {case['category']}")
+        print(f"Input: {case['input']}")
+        print(f"Description: {case['description']}")
+        print("="*80 + "\n")
+
+        response = bot.process_input(case['input'])
+        
+        print("Response:")
+        print(response)
+
+        print("\n" + "-"*80 + "\n")
+        
+        # Clear history for next test
+        bot.clear_history()
+
+if __name__ == "__main__":
+    test_critical_reasoning()
