@@ -6,32 +6,77 @@
     <title>AI Chatbot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <!-- <img src="{{ url_for('static', filename='images/bot-avatar.png') }}" alt="Bot Avatar"> -->
-            <h1>P-Reasoner</h1>
-            <div class="reasoning-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="reasoningToggle">
-                    <span class="slider round"></span>
-                </label>
-                <span class="toggle-label">Reasoning Mode</span>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">P-Reasoner</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero-section">
+            <h1>Welcome to P-Reasoner</h1>
+            <p>Your AI-powered coding companion that makes complex tasks simple and intuitive</p>
+            <div class="decorative-elements">
+                <div class="sparkle"></div>
+                <div class="circle"></div>
+                <div class="square"></div>
             </div>
         </div>
-        
-        <div class="chat-messages" id="messageContainer">
-            <!-- Messages will be inserted here -->
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <!-- <img src="{{ url_for('static', filename='images/bot-avatar.png') }}" alt="Bot Avatar"> -->
+                <h1>P-Reasoner</h1>
+                <div class="reasoning-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="reasoningToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">Reasoning Mode</span>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="messageContainer">
+                <!-- Messages will be inserted here -->
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendButton">
+                    <span class="send-icon">➤</span>
+                </button>
+            </div>
         </div>
-        
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Type your message...">
-            <button id="sendButton">
-                <span class="send-icon">➤</span>
-            </button>
-        </div>
-    </div>
+
+        <section id="features" class="features-section">
+            <h2>Amazing Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Smart Reasoning</h3>
+                    <p>Advanced AI-powered code analysis</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Response</h3>
+                    <p>Get instant answers to your queries</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Code Smart</h3>
+                    <p>Intelligent code suggestions</p>
+                </div>
+            </div>
+        </section>
+    </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
