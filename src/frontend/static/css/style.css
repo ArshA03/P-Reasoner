@@ -150,25 +150,64 @@ body {
 
 /* Adjust chat container */
 .chat-container {
-    width: 90%;
-    max-width: 1000px;
-    height: 70vh;
+    width: 80%;  /* reduced from 90% */
+    max-width: 900px;  /* reduced from 1000px */
+    height: 65vh;  /* reduced from 70vh */
     background: white;
     border-radius: 20px;
     border: 4px solid var(--primary-color);
     box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
-    transform: rotate(-1deg);
+    transform: rotate(-1deg) translateY(0);
     display: flex;
     flex-direction: column;
     margin: 1rem auto 3rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add styles for focus state */
+.chat-container.focused {
+    transform: rotate(0deg) scale(1.02) translateY(100px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* Add backdrop effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0px);
+    pointer-events: none;
+    transition: backdrop-filter 0.3s ease-out;
+    z-index: 50;
+}
+
+body.chat-focused::after {
+    backdrop-filter: blur(5px);
+}
+
+/* Update other elements for blur effect */
+.hero-section, .features-section, .navbar {
+    transition: filter 0.3s ease-out;
+}
+
+body.chat-focused .hero-section,
+body.chat-focused .features-section,
+body.chat-focused .navbar {
+    filter: blur(2px);
 }
 
 .chat-header {
     padding: 1.5rem 2rem;
     background: var(--primary-color);
-    border-radius: 20px 20px 0 0;
-    border: 3px solid #FF8585;
-    transform: rotate(1deg);
+    border-radius: 16px 16px 0 0;
+    /* border: 3px solid #FF8585; */
+    /* transform: rotate(1deg); */
     color: white;
     display: flex;
     align-items: center;
@@ -265,25 +304,25 @@ body {
     transform: scale(0.95);
 }
 
-
 /* Reasoning Toggle Switch Styles */
 .reasoning-toggle {
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .toggle-label {
     color: white;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 52px;
+    height: 28px;
 }
 
 .switch input {
@@ -300,40 +339,47 @@ body {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    transition: .4s;
-    border: 3px solid #FF8585;
+    transition: .3s ease-in-out;
+    border: 2px solid #FF8585;
+    box-sizing: border-box;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
     background-color: white;
-    transition: .4s;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
+    transition: .3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .slider.round {
-    border-radius: 34px;
+    border-radius: 28px;
 }
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+    border-color: #1976D2;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 2px #2196F3;
+}
+
+/* Add hover effect */
+.switch:hover .slider:before {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 /* Add styles for reasoning mode indicator */

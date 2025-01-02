@@ -104,3 +104,18 @@ function sendMessage() {
         });
     }
 }
+
+// Add focus handling
+const chatContainer = document.querySelector('.chat-container');
+
+userInput.addEventListener('focus', () => {
+    chatContainer.classList.add('focused');
+    document.body.classList.add('chat-focused');
+});
+
+document.addEventListener('click', (e) => {
+    if (!chatContainer.contains(e.target)) {
+        chatContainer.classList.remove('focused');
+        document.body.classList.remove('chat-focused');
+    }
+});
