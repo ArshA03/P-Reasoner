@@ -98,4 +98,7 @@ ArshA03-P-Reasoner/
 
 ## License
 
-Added Soon!
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
