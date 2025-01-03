@@ -82,8 +82,8 @@ class Chatbot:
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("API_KEY"),
         )
-        self.assistant_model = "anthropic/claude-3.5-haiku"
-        self.supervisor_model = "openai/gpt-4o-mini"
+        self.assistant_model = "openai/gpt-3.5-turbo"
+        self.supervisor_model = "openai/gpt-4o"
         self.assistant_prompt = assistant_prompt
         self.supervisor_prompt = supervisor_prompt
 
@@ -243,7 +243,8 @@ class Chatbot:
         completion = self.client.beta.chat.completions.parse(
             model=self.supervisor_model,
             messages=self.reasoning_history,
-            response_format=self.SupervisorRater
+            response_format=self.SupervisorRater,
+            max_completion_tokens=400
         )
 
         supervisor_response = completion.choices[0].message.parsed
