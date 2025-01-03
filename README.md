@@ -1,7 +1,7 @@
 
 # P-Reasoner: AI-Powered Reasoning Assistant
 
-P-Reasoner is an advanced chatbot application that enhances Large Language Models (LLMs) with structured reasoning capabilities. It employs a unique dual-agent architecture featuring an Assistant and a Supervisor to provide more thorough and well-reasoned responses.
+P-Reasoner is an advanced chatbot application that enhances Large Language Models (LLMs) with structured reasoning capabilities. It employs a unique dual-agent architecture featuring an Assistant and a Supervisor to provide more thorough and well-reasoned responses while using less advanced and cheaper models!
 
 ## Features
 
@@ -95,8 +95,6 @@ ArshA03-P-Reasoner/
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
 
 ## License
 
